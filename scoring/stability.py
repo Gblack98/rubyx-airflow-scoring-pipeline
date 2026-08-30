@@ -55,7 +55,7 @@ def enforce_stability(
     psi = population_stability_index(baseline, current)
     if psi > threshold:
         raise ScoreDriftError(
-            f"score PSI {psi:.3f} exceeds {threshold} — "
+            f"score PSI {psi:.3f} exceeds {threshold}, "
             f"scores withheld, investigate upstream features"
         )
     return psi

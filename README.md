@@ -6,9 +6,9 @@ Daily batch credit scoring on Airflow: the full customer base is re-scored every
 list_chunks ──▶ score_chunk (mapped, ×N) ──▶ drift_gate (PSI) ──▶ publish
 ```
 
-- `scoring/model.py` — versioned logistic model: coefficients are code (PR-reviewed), `model_version` lands next to every score for auditability
-- `scoring/stability.py` — Population Stability Index between today's and yesterday's score distributions; **PSI > 0.25 fails the run and withholds publication** — a broken upstream feature never reaches lending decisions
-- `dags/daily_credit_scoring.py` — chunked dynamic task mapping (capped parallelism), read-only scoring, atomic publish
+- `scoring/model.py`: versioned logistic model, the coefficients are code and get reviewed in a PR. `model_version` is stored next to every score.
+- `scoring/stability.py`: Population Stability Index between today's and yesterday's scores. Above 0.25 the run fails and nothing is published, so a broken upstream feature never reaches a lending decision.
+- `dags/daily_credit_scoring.py`: chunked dynamic task mapping with capped parallelism, read-only scoring, atomic publish.
 
 ## Tests
 
